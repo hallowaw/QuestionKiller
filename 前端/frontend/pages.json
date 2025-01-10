@@ -1,0 +1,100 @@
+{
+	"pages": [
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+            "path" : "pages/user/user",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		  "path": "pages/addPage/addPage",
+		  "style": {
+		    "navigationBarTitleText": "添加数据"
+		  }
+		},
+		{
+			"path" : "pages/fastAddPage/fastAddPage",
+			"style" : 
+			{
+				"navigationBarTitleText" : "一键添加"
+			}
+		},
+		
+		{
+			"path" : "pages/fastAddPageHelp/fastAddPageHelp",
+			"style" : 
+			{
+				"navigationBarTitleText" : "一键添加示例"
+			}
+		},
+		{
+			"path" : "pages/searchAndEditAndDelete/searchAndEditAndDelete",
+			"style" : 
+			{
+				"navigationBarTitleText" : "查询编辑和删除"
+			}
+		},
+		{
+			"path" : "pages/wordBookPage/wordBookPage",
+			"style" : 
+			{
+				"navigationBarTitleText" : "词书删改查和修改默认词书"
+			}
+		},
+		{
+			"path" : "pages/importWordBookPage/importWordBookPage",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/ShowStats/ShowStats",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	
+	"tabBar": {
+		"color":"#666",
+		"selectedColor": "#31C27C",
+		"list": [
+			{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/home.png",
+				"selectedIconPath": "static/images/home-h.png"
+			},{
+				"text": "个人",
+				"pagePath": "pages/user/user",
+				"iconPath": "static/images/user.png",
+				"selectedIconPath": "static/images/user-h.png"
+			}
+			
+		]
+	}
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.yanbin.mapper.QuestionOptionMapper">
+    <!-- 插入单个 QuestionOption 数据 -->
+    <insert id="insert">
+        INSERT INTO question_option
+            (question_id, option_label, option_text)
+        VALUES
+            (#{questionId}, #{optionLabel}, #{optionText})
+    </insert>
+    <!-- 根据questionid删掉相关记录 -->
+    <delete id="deleteByQuestionId">
+
+        DELETE FROM question_option
+        WHERE question_id = #{id}
+
+    </delete>
+
+</mapper>

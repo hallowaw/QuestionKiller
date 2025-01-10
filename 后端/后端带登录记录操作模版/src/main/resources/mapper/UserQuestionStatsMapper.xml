@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.yanbin.mapper.UserQuestionStatsMapper">
+
+
+
+    <insert id="insert" useGeneratedKeys="true">
+        INSERT INTO user_question_stats
+        (user_id, question_id, total_answer_count, correct_answer_count, last_answer_time)
+        VALUES
+            (#{userId}, #{questionId}, #{totalAnswerCount}, #{correctAnswerCount}, now())
+    </insert>
+    <delete id="deleteByQuestionId">
+        DELETE FROM user_question_stats
+        WHERE question_id = #{id}
+    </delete>
+    <select id="getAllTotalAnswerCount" resultType="java.lang.Long">
+        SELECT SUM(total_answer_count)
+        FROM user_question_stats
+        WHERE user_id = #{currentId}
+    </select>
+    <select id="getAllCorrectAnswerCount" resultType="java.lang.Long">
+         SELECT SUM(correct_answer_count)
+         FROM user_question_stats
+         WHERE user_id = #{currentId}
+    </select>
+    <select id="getAllLastAnswerTime" resultType="java.time.LocalDateTime">
+        select last_answer_time
+        from user_question_stats
+        where user_id = #{currentId}
+        order by last_answer_time desc
+        limit 1
+    </select>
+    <update id="updateUserQuestionStats">
+        UPDATE user_question_stats
+        SET correct_answer_count =#{correctAnswerCount},
+            total_answer_count = #{totalAnswerCount},
+            last_answer_time = now()
+        WHERE user_id = #{currentId} AND question_id = #{id}
+    </update>
+
+</mapper>

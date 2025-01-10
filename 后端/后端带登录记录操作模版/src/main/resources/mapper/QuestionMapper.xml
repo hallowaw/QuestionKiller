@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.yanbin.mapper.QuestionMapper">
+    <delete id="deleteById">
+        DELETE FROM question
+        WHERE id = #{id}
+    </delete>
+    <!-- 随机查询一个题目 -->
+    <select id="getRandomQuestion" resultType="site.yanbin.common.entity.Question">
+        SELECT id, title, question_type as questionType, category, correct_choice as correctChoice,
+               note,status, word_book_id as wordBookId
+        FROM question
+        WHERE word_book_id = #{defaultWordBookId}
+          AND status = 1
+        ORDER BY RAND()
+            LIMIT 1
+    </select>
+
+    <!-- 根据题目ID查询所有选项 -->
+    <select id="getQuestionOptions" resultType="site.yanbin.common.entity.QuestionOption">
+        SELECT id, question_id as questionId, option_label as optionLabel, option_text as optionText
+        FROM question_option
+        WHERE question_id = #{questionId}
+    </select>
+
+
+    <select id="getCorrectAnswerCount" resultType="int">
+        SELECT correct_answer_count
+        FROM user_question_stats
+        WHERE user_id = #{currentId} AND question_id = #{id}
+    </select>
+
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO question
+        (title, question_type, category, correct_choice, note, word_book_id, status, created_at, created_by, updated_at, updated_by)
+        VALUES
+            (#{title}, #{questionType}, #{category}, #{correctChoice}, #{note}, #{wordBookId}, #{status}, #{createdAt}, #{createdBy}, #{updatedAt}, #{updatedBy})
+    </insert>
+
+
+    <select id="pageQuery" resultType="site.yanbin.common.entity.Question">
+        SELECT *
+        FROM question
+        <where>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="wordBookId != null">
+                AND word_book_id = #{wordBookId}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+    <select id="getQuestionById" resultType="site.yanbin.common.entity.Question">
+        SELECT id, title, question_type as questionType, category, correct_choice as correctChoice,
+               note,status, word_book_id as wordBookId
+        FROM question
+        WHERE id = #{id}
+    </select>
+    <select id="getTotalAnswerCount" resultType="java.lang.Integer">
+        select total_answer_count
+        FROM user_question_stats
+        WHERE user_id = #{currentId} AND question_id = #{id}
+    </select>
+    <select id="getAllQuestionIdList" resultType="java.lang.Long">
+        SELECT id FROM question
+        WHERE word_book_id = #{wordBookId}
+        ORDER BY id
+    </select>
+
+
+    <update id="updateById" parameterType="site.yanbin.common.entity.Question">
+        UPDATE question
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="questionType != null">question_type = #{questionType},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="correctChoice != null">correct_choice = #{correctChoice},</if>
+            <if test="note != null">note = #{note},</if>
+            <if test="wordBookId != null">word_book_id = #{wordBookId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <update id="updateNote">
+        UPDATE question
+        SET note = #{note}
+        WHERE id = #{id}
+    </update>
+</mapper>

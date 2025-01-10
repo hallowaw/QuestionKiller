@@ -1,0 +1,34 @@
+
+server:
+  port: 9192
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/question
+    username: root
+    password: your's
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: site.yanbin.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+
+tencent:
+  cos:
+    secretId: your's
+    secretKey: your's
+    bucketName: your's
+    region: your's  # 选择你的地域
+
+jwt:
+  secret: your's

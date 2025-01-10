@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.yanbin.mapper.UserWordBookMapper">
+
+
+    <insert id="insert">
+        INSERT INTO user_word_book (word_book_id, user_id, permission,created_at)
+        VALUES (#{id}, #{currentId}, #{permission},now())
+    </insert>
+    <delete id="deleteByWordBookId">
+         DELETE FROM user_word_book
+         WHERE word_book_id = #{id}
+    </delete>
+    <delete id="deleteByWordBookIdAndUserId">
+         DELETE FROM user_word_book
+         WHERE word_book_id = #{id} AND user_id = #{userId}
+    </delete>
+    <select id="getAllWordIdList" resultType="java.lang.Long">
+        SELECT word_book_id
+        FROM user_word_book
+        WHERE user_id = #{userId}
+
+    </select>
+    <select id="getPermission" resultType="java.lang.String">
+         SELECT permission
+         FROM user_word_book
+         WHERE user_id = #{userId} AND word_book_id = #{wordBookId}
+    </select>
+
+
+</mapper>
